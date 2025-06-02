@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const knex = require('knex');
+const dbHost = process.env.DB_HOST;
 const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASS;
 const dbName = process.env.DB_NAME;
@@ -14,8 +15,8 @@ const appId = process.env.APP_ID;
 const db = knex({
         client: 'pg',
         connection: {     
-         host: '127.0.0.1',
-          port: 2323,
+         host: dbHost,
+          port: 5432,
           user: dbUser,
           password: dbPass,
           database: dbName,
