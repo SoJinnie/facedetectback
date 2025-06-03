@@ -70,7 +70,7 @@ app.post('/signin', (req, res) => {
 .catch(err => res.status(400).json('Something wrong'))
     }) */
 
-app.post('/register', async (req, res) => {
+/* app.post('/register', async (req, res) => {
         const { email, password, name } = req.body;
         if(!email || !password || !name) {
             return res.status(400).json('Incorrect form!')
@@ -90,12 +90,10 @@ app.post('/register', async (req, res) => {
                 .insert({
                     email: loginEmail[0].email,
                     name: name, 
-                    /* password: hash, */
                     joined: new Date()
                 }) 
             .then(user => {
                 res.json(user[0]);
-               /*  nextId++; */
             })
             })
             .then(trx.commit)
@@ -103,6 +101,56 @@ app.post('/register', async (req, res) => {
     })
         .catch(err => res.status(400).json('unable to register'));
 })
+ */
+
+app.post('/register', async (req, res) => {
+  const { email, password, name } = req.body;
+
+  console.log('Received:', email, password, name); // 🔍 Debug input
+
+  if (!email || !password || !name) {
+    return res.status(400).json('Incorrect form!');
+  }
+
+  try {
+    const hash = await bcrypt.hash(password, 13);
+    
+    db.transaction(trx => {
+      trx.insert({
+        hash: hash,
+        email: email,
+      })
+      .into('login')
+      .returning('email')
+      .then(loginEmail => {
+        return trx('users')
+          .returning('*')
+          .insert({
+            email: loginEmail[0].email,
+            name: name,
+            joined: new Date()
+          });
+      })
+      .then(user => {
+        console.log('Registered user:', user[0]); // ✅ Success
+        res.json(user[0]);
+      })
+      .then(trx.commit)
+      .catch(err => {
+        console.error('Transaction failed:', err); // 🛑 Log error
+        trx.rollback();
+        res.status(400).json('unable to register');
+      });
+    }).catch(err => {
+      console.error('DB error:', err); // 🛑 Catch outer error
+      res.status(400).json('unable to register');
+    });
+
+  } catch (err) {
+    console.error('Hashing or other error:', err);
+    res.status(400).json('unable to register');
+  }
+});
 
 app.get('/profile/:id', (req, res) => {
     const {id} =req.params;
