@@ -26,6 +26,8 @@ const db = knex({
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.json());
+
 
 app.get('/', (req, res) => {
     res.send(db.users);
@@ -105,7 +107,7 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', async (req, res) => {
   const { email, password, name } = req.body;
-
+ console.log('Received from frontend:', req.body);
   console.log('Received:', email, password, name); // 🔍 Debug input
 
   if (!email || !password || !name) {
