@@ -20,7 +20,9 @@ const db = knex({
           user: dbUser,
           password: dbPass,
           database: dbName,
-          ssl: { rejectUnauthorized: false },
+          ssl: { 
+            require: true,
+            rejectUnauthorized: false },
         },
 });
 
