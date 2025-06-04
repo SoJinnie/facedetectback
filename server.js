@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const knex = require('knex');
-const dbHost = process.env.DB_HOST;
+/* const dbHost = process.env.DB_HOST; */
 const dbUser = process.env.DB_USER;
 const dbPass = process.env.DB_PASS;
 const dbName = process.env.DB_NAME;
@@ -17,7 +17,7 @@ const appId = process.env.APP_ID;
 const db = knex({
         client: 'pg',
         connection: {     
-         host: dbHost,
+         host: 'postgresql://mydb_f86y_user:9tqDZBpjCZubY0QflqjgzihsJGBstSly@dpg-d0u4rnc9c44c73aafrm0-a.oregon-postgres.render.com/mydb_f86y',
           port: 5432,
           user: dbUser,
           password: dbPass,
