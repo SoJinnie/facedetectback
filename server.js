@@ -17,7 +17,7 @@ const appId = process.env.APP_ID;
 const db = knex({
         client: 'pg',
         connection: {     
-         host: 'postgresql://mydb_f86y_user:9tqDZBpjCZubY0QflqjgzihsJGBstSly@dpg-d0u4rnc9c44c73aafrm0-a.oregon-postgres.render.com/mydb_f86y',
+         host: 'dpg-d0u4rnc9c44c73aafrm0-a.oregon-postgres.render.com',
           port: 5432,
           user: dbUser,
           password: dbPass,
