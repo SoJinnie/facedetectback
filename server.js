@@ -12,6 +12,8 @@ const apiKey = process.env.API_KEY;
 const userId = process.env.USER_ID;
 const appId = process.env.APP_ID;
 
+/*Mukodjééél*/
+
 const db = knex({
         client: 'pg',
         connection: {     
