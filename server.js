@@ -19,9 +19,9 @@ const db = knex({
         connection: {     
          host: 'dpg-d0u4rnc9c44c73aafrm0-a.oregon-postgres.render.com',
           port: 5432,
-          user: dbUser,
-          password: dbPass,
-          database: dbName,
+          user: 'mydb_f86y_user',
+          password: '9tqDZBpjCZubY0QflqjgzihsJGBstSly',
+          database: 'mydb_f86y',
           ssl: { 
             require: true,
             rejectUnauthorized: false },
