@@ -4,24 +4,15 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const cors = require('cors');
 const knex = require('knex');
-const dbHost = process.env.DB_HOST;
-const dbUser = process.env.DB_USER;
-const dbPass = process.env.DB_PASS;
-const dbName = process.env.DB_NAME;
-const apiKey = process.env.API_KEY;
-const userId = process.env.USER_ID;
-const appId = process.env.APP_ID;
-
-/*Mukodjééél*/
 
 const db = knex({
         client: 'pg',
         connection: {     
-         host: DB_HOST,
+         host: process.env.DB_HOST,
           port: 5432,
-          user: DB_USER,
-          password: DB_PASS,
-          database: DB_NAME,
+          user: process.env.DB_USER,
+          password: process.env.DB_PASS,
+          database: process.env.DB_NAME,
           ssl: { 
             require: true,
             rejectUnauthorized: false },
@@ -211,8 +202,8 @@ app.post('/clarifai', async (req, res) => {
 
   const raw = JSON.stringify({
       user_app_id: {
-          user_id: USER_ID,
-          app_id: APP_ID
+          user_id: process.env.USER_ID,
+          app_id: process.env.APP_ID
       },
       inputs: [
           {
@@ -229,7 +220,7 @@ app.post('/clarifai', async (req, res) => {
       method: 'POST',
       headers: {
           Accept: 'application/json',
-          Authorization: API_KEY,
+          Authorization: process.env.API_KEY,
           'Content-Type': 'application/json'
       },
       body: raw
