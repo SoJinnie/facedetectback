@@ -17,11 +17,11 @@ const appId = process.env.APP_ID;
 const db = knex({
         client: 'pg',
         connection: {     
-         host: process.env.DB_HOST,
+         host: DB_HOST,
           port: 5432,
-          user: process.env.DB_USER,
-          password: process.env.DB_PASS,
-          database: process.env.DB_NAME,
+          user: DB_USER,
+          password: DB_PASS,
+          database: DB_NAME,
           ssl: { 
             require: true,
             rejectUnauthorized: false },
@@ -211,8 +211,8 @@ app.post('/clarifai', async (req, res) => {
 
   const raw = JSON.stringify({
       user_app_id: {
-          user_id: userId,
-          app_id: appId
+          user_id: USER_ID,
+          app_id: APP_ID
       },
       inputs: [
           {
@@ -229,7 +229,7 @@ app.post('/clarifai', async (req, res) => {
       method: 'POST',
       headers: {
           Accept: 'application/json',
-          Authorization: apiKey,
+          Authorization: API_KEY,
           'Content-Type': 'application/json'
       },
       body: raw
